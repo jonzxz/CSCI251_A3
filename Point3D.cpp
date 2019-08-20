@@ -21,6 +21,12 @@
     return this->z;
   }
 
+  std::string Point3D::toString() {
+    std::string s = "(" + std::to_string(this->x) + ", " + std::to_string(this->y)
+              + ", " + std::to_string(this->z) + ")";
+
+    return s;
+  }
   #ifdef POINT3D
 
   int main() {

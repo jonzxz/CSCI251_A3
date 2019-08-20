@@ -17,6 +17,7 @@ public:
   void setPt1(Point2D pt1);
   void setPt2(Point2D pt2);
   double getScalarValue();
+  virtual std::string toString();
 };
 
 #endif

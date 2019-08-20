@@ -17,6 +17,7 @@ public:
   Point3D getPt2();
   void setPt1(Point3D pt1);
   void setPt2(Point3D pt2);
+  std::string toString() override;
 };
 
 

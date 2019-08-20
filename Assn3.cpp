@@ -34,6 +34,21 @@ int main() {
       }
       case '2':
         cout << "C2\n";
+        for (Point2D* ptr : point2DVec) {
+          cout << ptr->toString() << "\n";
+        }
+
+        for (Point3D* ptr : point3DVec) {
+          cout << ptr->toString() << "\n";
+        }
+
+        for (Line2D* ptr : line2DVec) {
+          cout << ptr->toString() << "\n";
+        }
+
+        for (Line3D* ptr : line3DVec) {
+          cout << ptr->toString() << "\n";
+        }
         break;
       case '3':
         cout << "C3\n";
@@ -49,6 +64,7 @@ int main() {
         break;
       case '7':
         cout << "C7\n";
+        cleanMemory(point2DVec, point3DVec, line2DVec, line3DVec);
         isQuit = true;
         break;
       default:
@@ -78,9 +94,8 @@ cleans up element in vector [ ]
 passes vector in to construct pointer of object
 
 */
-void readRecords(string fileName, vector<Point2D*>& point2DVec,
-                vector<Point3D*>& point3DVec, vector<Line2D*>& line2DVec,
-                vector<Line3D*>& line3DVec) {
+void readRecords(string fileName, vector<Point2D*>& p2dv,
+                  vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
   ifstream fileReader;
   string line;
 
@@ -90,10 +105,11 @@ void readRecords(string fileName, vector<Point2D*>& point2DVec,
     vector<string> objectData;
     objectData = splitByDelims(line, ", ");
 
-    for(string s : objectData) {
+    for(string &s : objectData) {
       cleanUpBrackets(s);
     }
-    constructObject(objectData, point2DVec, point3DVec, line2DVec, line3DVec);
+
+    constructObject(objectData, p2dv, p3dv, l2dv, l3dv);
   }
 }
 
@@ -120,6 +136,58 @@ void cleanUpBrackets(string& s) {
   s.erase(remove(s.begin(), s.end(), ']'), s.end());
 }
 
-void constructObject(vector<string> objectData) {
+void constructObject(vector<string>& objectData, vector<Point2D*>& p2dv,
+                  vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
+  string objectName = objectData.at(0);
 
+  if (objectName == "Point2D") {
+    int x = stoi(objectData.at(1));
+    int y = stoi(objectData.at(2));
+    Point2D* p2dptr = new Point2D(x, y);
+    p2dv.push_back(p2dptr);
+
+  } else if (objectName == "Point3D") {
+    int x = stoi(objectData.at(1));
+    int y = stoi(objectData.at(2));
+    int z = stoi(objectData.at(3));
+    Point3D* p3dptr = new Point3D(x, y, z);
+    p3dv.push_back(p3dptr);
+
+  } else if (objectName == "Line2D") {
+    int x1 = stoi(objectData.at(1));
+    int y1 = stoi(objectData.at(2));
+    int x2 = stoi(objectData.at(3));
+    int y2 = stoi(objectData.at(4));
+    Line2D* l2dptr = new Line2D(Point2D(x1, y1), Point2D(x2, y2));
+    l2dv.push_back(l2dptr);
+  } else if (objectName == "Line3D") {
+    int x1 = stoi(objectData.at(1));
+    int y1 = stoi(objectData.at(2));
+    int z1 = stoi(objectData.at(3));
+    int x2 = stoi(objectData.at(4));
+    int y2 = stoi(objectData.at(5));
+    int z2 = stoi(objectData.at(6));
+    Line3D* l3dptr = new Line3D(Point3D(x1, y1, z1), Point3D(x2, y2, z2));
+    l3dv.push_back(l3dptr);
+  }
 }
+
+  void cleanMemory(vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
+                  vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
+
+    for (Point2D* p2dptr : p2dv) {
+      delete p2dptr;
+    }
+
+    for (Point3D* p3dptr : p3dv) {
+      delete p3dptr;
+    }
+
+    for (Line2D* l2dptr : l2dv) {
+      delete l2dptr;
+    }
+
+    for (Line3D* l3dptr : l3dv) {
+      delete l3dptr;
+    }
+  }

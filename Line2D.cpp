@@ -36,6 +36,11 @@ double Line2D::getScalarValue() {
   return this->length;
 }
 
+std::string Line2D::toString() {
+  std::string s = this->pt1.toString() + ", " + this->pt2.toString();
+  return s;
+}
+
 #ifdef LINE2D
 
 int main() {

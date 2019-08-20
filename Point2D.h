@@ -1,6 +1,7 @@
 #ifndef POINT2D_H
 #define POINT2D_H
 #include <cmath>
+#include <string>
 
 class Point2D {
 
@@ -18,7 +19,7 @@ int getY();
 void setX(int x);
 void setY(int y);
 double getScalarValue();
-
+virtual std::string toString();
 
 };
 

@@ -27,6 +27,11 @@
     return this->distFrOrigin;
   }
 
+  std::string Point2D::toString() {
+    std::string s = "(" + std::to_string(this->x) + ", "
+                  + std::to_string(this->y) + ")";
+    return s;
+  }
   #ifdef POINT2D
 
   int main() {

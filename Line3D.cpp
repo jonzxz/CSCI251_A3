@@ -28,6 +28,11 @@ void Line3D::setPt2(Point3D pt2) {
   this->pt2 = pt2;
 }
 
+std::string Line3D::toString() {
+  std::string s = this->pt1.toString() + ", " + this->pt2.toString();
+  return s;
+}
+
 #ifdef LINE3D
 
 int main() {

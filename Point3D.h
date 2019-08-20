@@ -12,6 +12,7 @@ public:
   Point3D();
   void setZ(int z);
   int getZ();
+  std::string toString() override;
 };
 
 #endif
