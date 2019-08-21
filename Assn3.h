@@ -20,3 +20,6 @@ void constructObject(vector<string>& objectData, vector<Point2D*>& p2dv,
                   vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
 void cleanMemory(vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
                 vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
+void specifyFilter(std::string& filterCriteria, std::string& sortingCriteria);
+void specifyCriteria(std::string& filterCriteria, std::string& sortingCriteria);
+void decideSortingCriteria(std::string& filterCriteria, std::string& sortingCriteria, char& criteria);

@@ -5,9 +5,9 @@
 
 int main() {
   bool isQuit = false;
-  string filterCriteria= "filterCriteria";
-  string sortingCriteria = "sortingCriteria";
-  string sortingOrder = "sortingOrder";
+  string filterCriteria= "None";
+  string sortingCriteria = "None";
+  string sortingOrder = "None";
   vector<Point2D*> point2DVec;
   vector<Point3D*> point3DVec;
   vector<Line2D*> line2DVec;
@@ -25,15 +25,24 @@ int main() {
 
     switch (choice) {
       case '1': {
-        cout << "C1\n";
         string fileName;
         cout << "Please enter filename: ";
         //cin >> fileName;
+        cout << "\n";
         readRecords("data.txt", point2DVec, point3DVec, line2DVec, line3DVec);
         break;
       }
       case '2':
-        cout << "C2\n";
+        specifyFilter(filterCriteria, sortingCriteria);
+        break;
+      case '3':
+        specifyCriteria(filterCriteria, sortingCriteria);
+        break;
+      case '4':
+        cout << "C4\n";
+        break;
+      case '5':
+        cout << "C5\n";
         for (Point2D* ptr : point2DVec) {
           cout << ptr->toString() << "\n";
         }
@@ -49,15 +58,6 @@ int main() {
         for (Line3D* ptr : line3DVec) {
           cout << ptr->toString() << "\n";
         }
-        break;
-      case '3':
-        cout << "C3\n";
-        break;
-      case '4':
-        cout << "C4\n";
-        break;
-      case '5':
-        cout << "C5\n";
         break;
       case '6':
         cout << "C6\n";
@@ -98,7 +98,7 @@ void readRecords(string fileName, vector<Point2D*>& p2dv,
                   vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
   ifstream fileReader;
   string line;
-
+  int count = 0;
 
   fileReader.open(fileName);
   while (getline(fileReader, line) && !line.empty()) {
@@ -110,7 +110,11 @@ void readRecords(string fileName, vector<Point2D*>& p2dv,
     }
 
     constructObject(objectData, p2dv, p3dv, l2dv, l3dv);
+    count++;
   }
+
+  cout << to_string(count) << " records read in successfully!\n\n"
+       << "Going back to main menu...\n\n";
 }
 
 vector<string> splitByDelims(string line, string delims) {
@@ -172,22 +176,134 @@ void constructObject(vector<string>& objectData, vector<Point2D*>& p2dv,
   }
 }
 
-  void cleanMemory(vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
-                  vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
+void specifyFilter(string& filterCriteria, string& sortingCriteria) {
+  char criteria;
+  bool isValid = false;
+  cout << "[Specifying filtering criteria (current: " << filterCriteria << ")]\n\n"
+       << "a) Point2D records\n"
+       << "b) Point3D records\n"
+       << "c) Line2D records\n"
+       << "d) Line3D records\n\n";
+  cout << "Please enter your criteria (a-d): ";
+  cin >> criteria;
+  cout << endl;
 
-    for (Point2D* p2dptr : p2dv) {
-      delete p2dptr;
-    }
-
-    for (Point3D* p3dptr : p3dv) {
-      delete p3dptr;
-    }
-
-    for (Line2D* l2dptr : l2dv) {
-      delete l2dptr;
-    }
-
-    for (Line3D* l3dptr : l3dv) {
-      delete l3dptr;
-    }
+  if (criteria == 'a') {
+    filterCriteria = "Point2D";
+    sortingCriteria = "x-ordinate";
+    isValid = true;
+  } else if (criteria == 'b') {
+    filterCriteria = "Point3D";
+    sortingCriteria = "x-ordinate";
+    isValid = true;
+  } else if (criteria == 'c') {
+    filterCriteria = "Line2D";
+    sortingCriteria = "Pt. 1";
+    isValid = true;
+  } else if (criteria == 'd') {
+    filterCriteria = "Line3D";
+    sortingCriteria = "Pt. 1";
+    isValid = true;
   }
+  if (isValid) {
+  cout << "Filter criteria successfully set to '" << filterCriteria << "'!\n"
+       << "Also setting default sorting criteria to '" << sortingCriteria << "'!\n\n";
+
+  } else {
+  cout << "Invalid choice!\n\n"
+       << "Going back to main menu...\n\n";
+
+  }
+}
+
+void specifyCriteria(string& filterCriteria, string& sortingCriteria) {
+  cout << "[Specifying sorting criteria (current: " << sortingCriteria << ")]\n\n";
+  char criteria;
+  bool isValid = false;
+  if (filterCriteria == "Point2D") {
+    cout << "a) X-ordinate value\n"
+         << "b) Y-ordinate value\n"
+         << "c) Dist. Fr Origin value\n";
+  } else if (filterCriteria == "Point3D") {
+    cout << "a) X-ordinate value\n"
+         << "b) Y-ordinate value\n"
+         << "c) Z-ordinate value\n"
+         << "d) Dist. Fr Origin value\n";
+  } else if (filterCriteria == "None") {
+    cout << "No filter selected, please select a filter!\n\n";
+  } else {
+    cout << "a) X and Y coordinates values of Pt. 1\n"
+         << "b) X and Y coordinates values of Pt. 2\n"
+         << "c) Length value\n";
+  }
+
+  if (filterCriteria != "None") {
+    if (filterCriteria != "Point3D") {
+      cout << "Please enter your criteria (a-c): ";
+    } else {
+      cout << "Please enter your criteria (a-d): ";
+    }
+    cin >> criteria;
+  }
+
+
+  if (criteria == 'a' || criteria == 'b' || criteria == 'c' || criteria == 'd') {
+    if (!(filterCriteria == "Point3D") && criteria == 'd') {
+      cout << "\nInvalid, only select a-c!\n\n";
+      cout << "Going back to main menu..\n\n";
+    }
+    decideSortingCriteria(filterCriteria, sortingCriteria, criteria);
+  } else {
+    cout << "\nInvalid!\n"
+         << "Going back to main menu...\n\n";
+  }
+
+}
+
+void decideSortingCriteria(string& filterCriteria, string& sortingCriteria, char& criteria) {
+  if (criteria == 'a') {
+      if (filterCriteria == "Point2D" || filterCriteria == "Point3D") {
+        sortingCriteria = "x-ordinate";
+      } else {
+        sortingCriteria = "Pt. 1";
+      }
+  } else if (criteria == 'b') {
+    if (filterCriteria == "Point2D" || filterCriteria == "Point3D") {
+      sortingCriteria = "y-ordinate";
+    } else {
+      sortingCriteria = "Pt. 2";
+    }
+  } else if (criteria == 'c') {
+    if (filterCriteria == "Point2D") {
+      sortingCriteria = "Distance";
+    } else if (filterCriteria == "Point3D") {
+      sortingCriteria = "z-ordinate";
+    } else {
+      sortingCriteria = "Length";
+    }
+  } else {
+    sortingCriteria = "Distance";
+  }
+
+  cout << "\nSorting criteria successfully set to '" << sortingCriteria << "'!\n\n";
+}
+
+void cleanMemory(vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
+                vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
+
+  for (Point2D* p2dptr : p2dv) {
+    delete p2dptr;
+  }
+
+  for (Point3D* p3dptr : p3dv) {
+    delete p3dptr;
+  }
+
+  for (Line2D* l2dptr : l2dv) {
+    delete l2dptr;
+  }
+
+  for (Line3D* l3dptr : l3dv) {
+    delete l3dptr;
+  }
+}
