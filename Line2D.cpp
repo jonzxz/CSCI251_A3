@@ -43,6 +43,14 @@ std::string Line2D::toString() {
   return s;
 }
 
+void Line2D::printPoint() {
+  std::cout << "[" << std::setw(4) << std::right << std::to_string(this->getPt1().getX())
+  << ", " << std::setw(4) << std::right << std::to_string(this->getPt1().getY()) << "]"
+  << "\t[" << std::setw(4) << std::right << std::to_string(this->getPt2().getX())
+  << ", " << std::setw(4) << std::right << std::to_string(this->getPt2().getY()) << "]"
+  << "\t" << std::to_string(this->getScalarValue()) + "\n";
+}
+
 bool Line2D::comparePtOne(Line2D* lOne, Line2D* lTwo) {
   if (lOne->getPt1().getX() != lTwo->getPt1().getX()) {
     return lOne->getPt1().getX() < lTwo->getPt1().getX();

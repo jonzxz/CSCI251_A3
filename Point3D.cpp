@@ -22,10 +22,17 @@
   }
 
   std::string Point3D::toString() {
-    std::string s = "(" + std::to_string(this->x) + ", " + std::to_string(this->y)
-              + ", " + std::to_string(this->z) + ")" + "Distance: " + std::to_string(this->getScalarValue());
+    std::string s = "(" + std::to_string(this->getX()) + ", " + std::to_string(this->getY())
+              + ", " + std::to_string(this->getZ()) + ")" + "Distance: " + std::to_string(this->getScalarValue());
 
     return s;
+  }
+
+  void Point3D::printPoint() {
+    std::cout << "[" << std::setw(4) << std::right << std::to_string(this->getX())
+              << ", " << std::setw(4) << std::right << std::to_string(this->getY())
+              << ", " << std::setw(4) << std::right << std::to_string(this->getZ())
+              << "]" <<"\t" << std::to_string(this->getScalarValue()) + "\n";
   }
 
   bool Point3D::compareZ(Point3D* pOne, Point3D* pTwo) {

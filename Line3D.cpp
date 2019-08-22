@@ -35,6 +35,16 @@ std::string Line3D::toString() {
   return s;
 }
 
+void Line3D::printPoint() {
+  std::cout << "[" << std::setw(4) << std::right << std::to_string(this->getPt1().getX())
+  << ", " << std::setw(4) << std::right << std::to_string(this->getPt1().getY())
+  << ", " << std::setw(4) << std::right << std::to_string(this->getPt1().getZ())<< "]"
+  << "\t[" << std::setw(4) << std::right << std::to_string(this->getPt2().getX())
+  << ", " << std::setw(4) << std::right << std::to_string(this->getPt2().getY())
+  << ", " << std::setw(4) << std::right << std::to_string(this->getPt2().getZ()) << "]"
+  << "\t" << std::to_string(this->getScalarValue()) + "\n";
+}
+
 bool Line3D::comparePtOne(Line3D* lOne, Line3D* lTwo) {
   if (lOne->getPt1().getX() != lTwo->getPt1().getX()) {
     return lOne->getPt1().getX() < lTwo->getPt1().getX();

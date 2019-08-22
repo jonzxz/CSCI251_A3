@@ -27,15 +27,17 @@ int Point2D::getY() {
 double Point2D::getScalarValue() {
   return this->distFrOrigin;
 }
-/*
-std::string Point2D::toString() {
-  std::string s = "[   " + std::to_string(this->x) + ",   "
-  + std::to_string(this->y) + "]" + "   " + std::to_string(this->getScalarValue());
-  return s;
-}*/
 
-void Point2D::toString() {
-  cout << "[" + std::to_string(this->x) + ", " + std::to_string(this->y) + "]" + std::to_string(this->getScalarValue()) + "\n";
+std::string Point2D::toString() {
+  std::string s = "[" + std::to_string(this->x) + ", "
+  + std::to_string(this->y) + "]" + " " + std::to_string(this->getScalarValue());
+  return s;
+}
+
+void Point2D::printPoint() {
+  std::cout << "[" << std::setw(4) << std::right << std::to_string(this->getX())
+            << ", " << std::setw(4) << std::right << std::to_string(this->getY()) << "]"
+            << "\t" <<std::to_string(this->getScalarValue()) + "\n";
 }
 
 bool Point2D::compareX(Point2D* pOne, Point2D* pTwo) {

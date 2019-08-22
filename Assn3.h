@@ -14,12 +14,11 @@ using namespace std;
 void printMenu(string fc, string sc, string so);
 void readRecords(string fileName, vector<Point2D*>& p2dv,
                   vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
-vector<string> splitByDelims(string line, string delims);
-void cleanUpBrackets(string& s);
+
+
 void constructObject(vector<string>& objectData, vector<Point2D*>& p2dv,
                   vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
-void cleanMemory(vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
-                vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
+
 void specifyFilter(std::string& filterCriteria, std::string& sortingCriteria);
 void specifyCriteria(std::string& filterCriteria, std::string& sortingCriteria);
 void decideSortingCriteria(std::string& filterCriteria, std::string& sortingCriteria, char& criteria);
@@ -29,3 +28,7 @@ void sortThisUp(std::string& filterCriteria, std::string& sortingCriteria,
   vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
 void printData(std::string& filterCriteria, vector<Point2D*>& p2dv,
                   vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
+                  vector<string> splitByDelims(string line, string delims);
+                  void cleanMemory(vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
+                                  vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
+                  void cleanUpBrackets(string& s);
