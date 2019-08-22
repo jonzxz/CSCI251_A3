@@ -18,6 +18,10 @@ public:
   void setPt2(Point2D pt2);
   double getScalarValue();
   virtual std::string toString();
+  static bool comparePtOne(Line2D* lOne, Line2D* lTwo);
+  static bool comparePtTwo(Line2D* lOne, Line2D* lTwo);
+  static bool compareLength(Line2D* lOne, Line2D* lTwo);
+
 };
 
 #endif

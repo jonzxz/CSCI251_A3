@@ -18,6 +18,8 @@ public:
   void setPt1(Point3D pt1);
   void setPt2(Point3D pt2);
   std::string toString() override;
+  static bool comparePtOne(Line3D* lOne, Line3D* lTwo);
+  static bool comparePtTwo(Line3D* lOne, Line3D* lTwo);
 };
 
 

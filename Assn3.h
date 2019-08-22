@@ -23,3 +23,9 @@ void cleanMemory(vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
 void specifyFilter(std::string& filterCriteria, std::string& sortingCriteria);
 void specifyCriteria(std::string& filterCriteria, std::string& sortingCriteria);
 void decideSortingCriteria(std::string& filterCriteria, std::string& sortingCriteria, char& criteria);
+void specifyOrder(std::string& sortingOrder);
+void sortThisUp(std::string& filterCriteria, std::string& sortingCriteria,
+  std::string& sortingOrder, vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
+  vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
+void printData(std::string& filterCriteria, vector<Point2D*>& p2dv,
+                  vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);

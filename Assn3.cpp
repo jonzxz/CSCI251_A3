@@ -39,25 +39,11 @@ int main() {
         specifyCriteria(filterCriteria, sortingCriteria);
         break;
       case '4':
-        cout << "C4\n";
+        specifyOrder(sortingOrder);
         break;
       case '5':
-        cout << "C5\n";
-        for (Point2D* ptr : point2DVec) {
-          cout << ptr->toString() << "\n";
-        }
-
-        for (Point3D* ptr : point3DVec) {
-          cout << ptr->toString() << "\n";
-        }
-
-        for (Line2D* ptr : line2DVec) {
-          cout << ptr->toString() << "\n";
-        }
-
-        for (Line3D* ptr : line3DVec) {
-          cout << ptr->toString() << "\n";
-        }
+        sortThisUp(filterCriteria, sortingCriteria, sortingOrder, point2DVec, point3DVec, line2DVec, line3DVec);
+        printData(filterCriteria, point2DVec, point3DVec, line2DVec, line3DVec);
         break;
       case '6':
         cout << "C6\n";
@@ -94,8 +80,7 @@ cleans up element in vector [ ]
 passes vector in to construct pointer of object
 
 */
-void readRecords(string fileName, vector<Point2D*>& p2dv,
-                  vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
+void readRecords(string fileName, vector<Point2D*>& p2dv, vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
   ifstream fileReader;
   string line;
   int count = 0;
@@ -143,7 +128,6 @@ void cleanUpBrackets(string& s) {
 void constructObject(vector<string>& objectData, vector<Point2D*>& p2dv,
                   vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
   string objectName = objectData.at(0);
-
   if (objectName == "Point2D") {
     int x = stoi(objectData.at(1));
     int y = stoi(objectData.at(2));
@@ -288,9 +272,125 @@ void decideSortingCriteria(string& filterCriteria, string& sortingCriteria, char
   cout << "\nSorting criteria successfully set to '" << sortingCriteria << "'!\n\n";
 }
 
-void cleanMemory(vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
-                vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
+void specifyOrder(string& sortingOrder) {
+  char choice;
+  cout << "[Specifying sorting order (current: " << sortingOrder << ")]\n\n"
+       << "a) ASC (Ascending order)\n"
+       << "b) DSC (Descending order)\n\n"
+       << "Please enter your criteria (a - b): ";
+  cin >> choice;
+  cout << endl;
+  if (choice == 'a') {
+    sortingOrder = "ASC";
+    cout << "Sorting order successfully set to '" << sortingOrder << "'!\n\n";
+  } else if (choice == 'b') {
+    sortingOrder = "DSC";
+    cout << "Sorting order successfully set to '" << sortingOrder << "'!\n\n";
+  } else {
+    cout << "Invalid!\n\n";
+  }
+}
 
+void sortThisUp(string& filterCriteria, string& sortingCriteria, string& sortingOrder, vector<Point2D*>& p2dv, vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
+  //P2D BEGINS HERE
+  //P2D X
+  if (filterCriteria == "Point2D" && sortingCriteria == "x-ordinate" && sortingOrder == "ASC") {
+    sort(p2dv.begin(), p2dv.end(), Point2D::compareX);
+  } else if (filterCriteria == "Point2D" && sortingCriteria == "x-ordinate" && sortingOrder == "DSC") {
+    sort(p2dv.rbegin(), p2dv.rend(), Point2D::compareX);
+  //P2D Y
+  } else if (filterCriteria == "Point2D" && sortingCriteria == "y-ordinate" && sortingOrder == "ASC") {
+    sort(p2dv.begin(), p2dv.end(), Point2D::compareY);
+  } else if (filterCriteria == "Point2D" && sortingCriteria == "y-ordinate" && sortingOrder == "DSC") {
+    sort(p2dv.rbegin(), p2dv.rend(), Point2D::compareY);
+  // P2D DIST
+  } else if (filterCriteria == "Point2D" && sortingCriteria == "Distance" && sortingOrder == "ASC") {
+    sort(p2dv.begin(), p2dv.end(), Point2D::compareDist);
+  } else if (filterCriteria == "Point2D" && sortingCriteria == "Distance" && sortingOrder == "DSC") {
+    sort(p2dv.rbegin(), p2dv.rend(), Point2D::compareDist);
+    // P3D BEGINS HERE
+    // P3D X
+  } else if (filterCriteria == "Point3D" && sortingCriteria == "x-ordinate" && sortingOrder == "ASC") {
+    sort(p3dv.begin(), p3dv.end(), Point2D::compareX);
+  } else if (filterCriteria == "Point3D" && sortingCriteria == "x-ordinate" && sortingOrder == "DSC") {
+    sort(p3dv.rbegin(), p3dv.rend(), Point2D::compareX);
+    // P3D Y
+  } else if (filterCriteria == "Point3D" && sortingCriteria == "y-ordinate" && sortingOrder == "ASC") {
+    sort(p3dv.begin(), p3dv.end(), Point2D::compareY);
+  } else if (filterCriteria == "Point3D" && sortingCriteria == "y-ordinate" && sortingOrder == "ASC") {
+    sort(p3dv.rbegin(), p3dv.rend(), Point2D::compareY);
+    // P3D DIST
+  } else if (filterCriteria == "Point3D" && sortingCriteria == "Distance" && sortingOrder == "ASC") {
+    sort(p3dv.begin(), p3dv.end(), Point2D::compareDist);
+  } else if (filterCriteria == "Point3D" && sortingCriteria == "Distance" && sortingOrder == "DSC") {
+    sort(p3dv.rbegin(), p3dv.rend(), Point2D::compareDist);
+    // P3D Z
+  } else if (filterCriteria == "Point3D" && sortingCriteria == "z-ordinate" && sortingOrder == "ASC") {
+    sort(p3dv.begin(), p3dv.end(), Point3D::compareZ);
+  } else if (filterCriteria == "Point3D" && sortingCriteria == "z-ordinate" && sortingOrder == "DSC") {
+    sort(p3dv.rbegin(), p3dv.rend(), Point3D::compareZ);
+    // L2D BEGINS HERE
+    // PT. 1
+  } else if (filterCriteria == "Line2D" && sortingCriteria == "Pt. 1" && sortingOrder == "ASC") {
+    sort(l2dv.begin(), l2dv.end(), Line2D::comparePtOne);
+  } else if (filterCriteria == "Line2D" && sortingCriteria == "Pt. 1" && sortingOrder == "DSC") {
+    sort(l2dv.rbegin(), l2dv.rend(), Line2D::comparePtOne);
+    // PT. 2
+  } else if (filterCriteria == "Line2D" && sortingCriteria == "Pt. 2" && sortingOrder == "ASC") {
+    sort(l2dv.begin(), l2dv.end(), Line2D::comparePtTwo);
+  } else if (filterCriteria == "Line2D" && sortingCriteria == "Pt. 2" && sortingOrder == "DSC") {
+    sort(l2dv.rbegin(), l2dv.rend(), Line2D::comparePtTwo);
+    // LENGTH
+  } else if (filterCriteria == "Line2D" && sortingCriteria == "Length" && sortingOrder == "ASC") {
+    sort(l2dv.begin(), l2dv.end(), Line2D::compareLength);
+  } else if (filterCriteria == "Line2D" && sortingCriteria == "Length" && sortingOrder == "DSC") {
+    sort(l2dv.rbegin(), l2dv.rend(), Line2D::compareLength);
+    // L3D BEGINS HERE
+    // PT. 1
+  } else if (filterCriteria == "Line3D" && sortingCriteria == "Pt. 1" && sortingOrder == "ASC") {
+    sort(l3dv.begin(), l3dv.end(), Line3D::comparePtOne);
+  } else if (filterCriteria == "Line3D" && sortingCriteria == "Pt. 1" && sortingOrder == "DSC") {
+    sort(l3dv.rbegin(), l3dv.rend(), Line3D::comparePtOne);
+    // PT. 2
+  } else if (filterCriteria == "Line3D" && sortingCriteria == "Pt. 2" && sortingOrder == "ASC") {
+    sort(l3dv.begin(), l3dv.end(), Line3D::comparePtTwo);
+  } else if (filterCriteria == "Line3D" && sortingCriteria == "Pt. 2" && sortingOrder == "DSC") {
+    sort(l3dv.rbegin(), l3dv.rend(), Line3D::comparePtTwo);
+    // LENGTH
+  } else if (filterCriteria == "Line3D" && sortingCriteria == "Length" && sortingOrder == "ASC") {
+    sort(l3dv.begin(), l3dv.end(), Line2D::compareLength);
+  } else if (filterCriteria == "Line3D" && sortingCriteria == "Length" && sortingOrder == "DSC") {
+    sort(l3dv.rbegin(), l3dv.rend(), Line2D::compareLength);
+  }
+}
+
+void printData(string& filterCriteria, vector<Point2D*>& p2dv, vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
+  if (filterCriteria == "Point2D") {
+    cout << setprecision(10) << "   X   Y   Dist. Fr Origin\n"
+         << "------------------------------------------------\n";
+    for (Point2D* ptr : p2dv) {
+      cout << ptr->toString() << "\n";
+    }
+
+  } else if (filterCriteria == "Point3D") {
+
+    for (Point3D* ptr : p3dv) {
+      cout << ptr->toString() << "\n";
+    }
+
+  } else if (filterCriteria == "Line2D") {
+
+    for (Line2D* ptr : l2dv) {
+      cout << ptr->toString() << "\n";
+    }
+
+  } else {
+    for (Line3D* ptr : l3dv) {
+      cout << ptr->toString() << "\n";
+    }
+  }
+}
+void cleanMemory(vector<Point2D*>& p2dv, vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
   for (Point2D* p2dptr : p2dv) {
     delete p2dptr;
   }

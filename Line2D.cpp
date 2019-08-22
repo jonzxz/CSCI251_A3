@@ -3,6 +3,8 @@
 Line2D::Line2D(Point2D p1, Point2D p2) {
   this->pt1 = p1;
   this->pt2 = p2;
+  this->length = 0;
+  this->setLength();
 }
 
 Line2D::Line2D() {
@@ -37,9 +39,28 @@ double Line2D::getScalarValue() {
 }
 
 std::string Line2D::toString() {
-  std::string s = this->pt1.toString() + ", " + this->pt2.toString();
+  std::string s = this->pt1.toString() + ", " + this->pt2.toString() + "Distance: " + std::to_string(this->getScalarValue());
   return s;
 }
+
+bool Line2D::comparePtOne(Line2D* lOne, Line2D* lTwo) {
+  if (lOne->getPt1().getX() != lTwo->getPt1().getX()) {
+    return lOne->getPt1().getX() < lTwo->getPt1().getX();
+  }
+  return lOne->getPt1().getY() < lTwo->getPt1().getY();
+}
+
+bool Line2D::comparePtTwo(Line2D* lOne, Line2D* lTwo) {
+  if (lOne->getPt2().getX() != lTwo->getPt2().getX()) {
+    return lOne->getPt2().getX() < lTwo->getPt2().getX();
+  }
+  return lOne->getPt2().getY() < lTwo->getPt2().getY();
+}
+
+bool Line2D::compareLength(Line2D* lOne, Line2D* lTwo) {
+  return lOne->getScalarValue() < lTwo->getScalarValue();
+}
+
 
 #ifdef LINE2D
 

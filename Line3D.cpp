@@ -3,6 +3,8 @@
 Line3D::Line3D(Point3D pt1, Point3D pt2) : Line2D() {
   this->pt1 = pt1;
   this->pt2 = pt2;
+  this->length = 0;
+  this->setLength();
 }
 
 void Line3D::setLength() {
@@ -29,8 +31,22 @@ void Line3D::setPt2(Point3D pt2) {
 }
 
 std::string Line3D::toString() {
-  std::string s = this->pt1.toString() + ", " + this->pt2.toString();
+  std::string s = this->pt1.toString() + ", " + this->pt2.toString() + "Distance: " + std::to_string(this->getScalarValue());
   return s;
+}
+
+bool Line3D::comparePtOne(Line3D* lOne, Line3D* lTwo) {
+  if (lOne->getPt1().getX() != lTwo->getPt1().getX()) {
+    return lOne->getPt1().getX() < lTwo->getPt1().getX();
+  }
+  return lOne->getPt1().getY() < lTwo->getPt1().getY();
+}
+
+bool Line3D::comparePtTwo(Line3D* lOne, Line3D* lTwo) {
+  if (lOne->getPt2().getX() != lTwo->getPt2().getX()) {
+    return lOne->getPt2().getX() < lTwo->getPt2().getX();
+  }
+  return lOne->getPt2().getY() < lTwo->getPt2().getY();
 }
 
 #ifdef LINE3D

@@ -10,7 +10,7 @@
   }
 
   void Point3D:: setDistFrOrigin() {
-    //this->distFrOrigin = d;
+    this->distFrOrigin = sqrt(pow(this->x, 2) + (pow(this->y, 2)) + (pow(this->z, 2)));
   }
 
   void Point3D::setZ(int z) {
@@ -23,10 +23,16 @@
 
   std::string Point3D::toString() {
     std::string s = "(" + std::to_string(this->x) + ", " + std::to_string(this->y)
-              + ", " + std::to_string(this->z) + ")";
+              + ", " + std::to_string(this->z) + ")" + "Distance: " + std::to_string(this->getScalarValue());
 
     return s;
   }
+
+  bool Point3D::compareZ(Point3D* pOne, Point3D* pTwo) {
+    return pOne->getZ() < pTwo->getZ();
+  }
+
+
   #ifdef POINT3D
 
   int main() {

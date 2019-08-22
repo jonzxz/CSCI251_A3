@@ -13,6 +13,7 @@ public:
   void setZ(int z);
   int getZ();
   std::string toString() override;
+  static bool compareZ(Point3D* pOne, Point3D* pTwo);
 };
 
 #endif

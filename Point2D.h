@@ -20,7 +20,10 @@ void setX(int x);
 void setY(int y);
 double getScalarValue();
 virtual std::string toString();
-
+void toString();
+static bool compareX(Point2D* pOne, Point2D* pTwo);
+static bool compareY(Point2D* pOne, Point2D* pTwo);
+static bool compareDist(Point2D* pOne, Point2D* pTwo);
 };
 
 
