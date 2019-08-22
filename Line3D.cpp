@@ -31,17 +31,19 @@ void Line3D::setPt2(Point3D pt2) {
 }
 
 std::string Line3D::toString() {
-  std::string s = this->pt1.toString() + ", " + this->pt2.toString() + "Distance: " + std::to_string(this->getScalarValue());
+  std::string s = this->getPt1().toString() + ", " + this->getPt2().toString()
+  + "Distance: " + std::to_string(this->getScalarValue());
   return s;
 }
 
 void Line3D::printPoint() {
-  std::cout << "[" << std::setw(4) << std::right << std::to_string(this->getPt1().getX())
-  << ", " << std::setw(4) << std::right << std::to_string(this->getPt1().getY())
-  << ", " << std::setw(4) << std::right << std::to_string(this->getPt1().getZ())<< "]"
-  << "\t[" << std::setw(4) << std::right << std::to_string(this->getPt2().getX())
-  << ", " << std::setw(4) << std::right << std::to_string(this->getPt2().getY())
-  << ", " << std::setw(4) << std::right << std::to_string(this->getPt2().getZ()) << "]"
+  std::cout << std::right
+  <<"[" << std::setw(4) << std::to_string(this->getPt1().getX())
+  << ", " << std::setw(4) << std::to_string(this->getPt1().getY())
+  << ", " << std::setw(4) << std::to_string(this->getPt1().getZ())<< "]"
+  << "\t[" << std::setw(4) << std::to_string(this->getPt2().getX())
+  << ", " << std::setw(4) << std::to_string(this->getPt2().getY())
+  << ", " << std::setw(4) << std::to_string(this->getPt2().getZ()) << "]"
   << "\t" << std::to_string(this->getScalarValue()) + "\n";
 }
 

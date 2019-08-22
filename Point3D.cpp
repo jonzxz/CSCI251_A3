@@ -10,7 +10,7 @@
   }
 
   void Point3D:: setDistFrOrigin() {
-    this->distFrOrigin = sqrt(pow(this->x, 2) + (pow(this->y, 2)) + (pow(this->z, 2)));
+    this->distFrOrigin = sqrt(pow(this->getX(), 2) + (pow(this->getY(), 2)) + (pow(this->getZ(), 2)));
   }
 
   void Point3D::setZ(int z) {
@@ -29,10 +29,11 @@
   }
 
   void Point3D::printPoint() {
-    std::cout << "[" << std::setw(4) << std::right << std::to_string(this->getX())
-              << ", " << std::setw(4) << std::right << std::to_string(this->getY())
-              << ", " << std::setw(4) << std::right << std::to_string(this->getZ())
-              << "]" <<"\t" << std::to_string(this->getScalarValue()) + "\n";
+    std::cout << std::right
+    << "[" << std::setw(4) << std::to_string(this->getX())
+    << ", " << std::setw(4) << std::to_string(this->getY())
+    << ", " << std::setw(4) << std::to_string(this->getZ())
+    << "]" <<"\t" << std::to_string(this->getScalarValue()) + "\n";
   }
 
   bool Point3D::compareZ(Point3D* pOne, Point3D* pTwo) {

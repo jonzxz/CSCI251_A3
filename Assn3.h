@@ -11,24 +11,37 @@
 
 using namespace std;
 
-void printMenu(string fc, string sc, string so);
+/* Vector Functions */
 void readRecords(string fileName, vector<Point2D*>& p2dv,
-                  vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
-
+  vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
 
 void constructObject(vector<string>& objectData, vector<Point2D*>& p2dv,
-                  vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
+  vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
 
-void specifyFilter(std::string& filterCriteria, std::string& sortingCriteria);
-void specifyCriteria(std::string& filterCriteria, std::string& sortingCriteria);
-void decideSortingCriteria(std::string& filterCriteria, std::string& sortingCriteria, char& criteria);
-void specifyOrder(std::string& sortingOrder);
-void sortThisUp(std::string& filterCriteria, std::string& sortingCriteria,
-  std::string& sortingOrder, vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
+void sortThisUp(string& filterCriteria, string& sortingCriteria,
+  string& sortingOrder, vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
   vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
-void printData(std::string& filterCriteria, vector<Point2D*>& p2dv,
-                  vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
-                  vector<string> splitByDelims(string line, string delims);
-                  void cleanMemory(vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
-                                  vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
-                  void cleanUpBrackets(string& s);
+
+/* Utility Functions */
+vector<string> splitByDelims(string line, string delims);
+
+void cleanMemory(vector<Point2D*>& p2dv, vector<Point3D*>& p3dv,
+  vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
+
+void cleanUpBrackets(string& s);
+
+void writeToFile(string& filterCriteria, string& sortingCriteria, string& sortingOrder, vector<Point2D*>& p2dv,
+  vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
+
+/* Print Functions */
+void printMenu(string fc, string sc, string so);
+
+void printData(string& filterCriteria, string& sortingCriteria, string& sortingOrder, vector<Point2D*>& p2dv,
+  vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv);
+
+/* Criteria Functions */
+void specifyFilter(string& filterCriteria, string& sortingCriteria);
+void specifyCriteria(string& filterCriteria, string& sortingCriteria);
+void specifyOrder(string& sortingOrder);
+void decideSortingCriteria(string& filterCriteria,
+  string& sortingCriteria, char& criteria);

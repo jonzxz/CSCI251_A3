@@ -43,10 +43,10 @@ int main() {
         break;
       case '5':
         sortThisUp(filterCriteria, sortingCriteria, sortingOrder, point2DVec, point3DVec, line2DVec, line3DVec);
-        printData(filterCriteria, point2DVec, point3DVec, line2DVec, line3DVec);
+        printData(filterCriteria, sortingCriteria, sortingOrder, point2DVec, point3DVec, line2DVec, line3DVec);
         break;
       case '6':
-        cout << "C6\n";
+        writeToFile(filterCriteria, sortingCriteria, sortingOrder, point2DVec, point3DVec, line2DVec, line3DVec);
         break;
       case '7':
         cout << "Clearing vectors.. No memory leaks!\n";
@@ -245,54 +245,86 @@ void cleanMemory(vector<Point2D*>& p2dv, vector<Point3D*>& p3dv, vector<Line2D*>
   }
 }
 
+void writeToFile(string& filterCriteria, string& sortingCriteria, string& sortingOrder, vector<Point2D*>& p2dv,
+  vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
+
+  string fileName;
+  cout << "Please enter filename: ";
+  cin >> fileName;
+
+  ofstream fileWriter(fileName);
+  ofstream::trunc;
+
+  // saves output buffer of cout and redirect it into file
+  streambuf* strm_buffer = cout.rdbuf();
+  cout.rdbuf(fileWriter.rdbuf());
+  printData(filterCriteria, sortingCriteria, sortingOrder, p2dv, p3dv, l2dv, l3dv);
+  cout.rdbuf(strm_buffer);
+}
 /*----------------------------------------------------------------------------*/
 
 /* Print Functions */
-void printData(string& filterCriteria, vector<Point2D*>& p2dv, vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
-  if (filterCriteria == "Point2D") {
-    cout
-    << setw(5) << right << "X"
-    << setw(6)  << "Y"
-    << setw(5)  << "\tDist. Fr Origin\n"
-    << "------------------------------------------------\n";
-    for (Point2D* ptr : p2dv) {
-      ptr->printPoint();
-    }
+void printData(string& filterCriteria, string& sortingCriteria, string& sortingOrder, vector<Point2D*>& p2dv, vector<Point3D*>& p3dv, vector<Line2D*>& l2dv, vector<Line3D*>& l3dv) {
+  int count = 0;
+  cout << "[View data ...]\n"
+  << "filtering criteria: " << filterCriteria
+  << "\nsorting criteria: " << sortingCriteria
+  << "\nsorting order: " << sortingOrder
+  << "\n\n";
 
-  } else if (filterCriteria == "Point3D") {
-    cout
-    << setw(5) << right << "X"
-    << setw(6)  << "Y"
-    << setw(6) << "Z"
-    << setw(5)  << "\tDist. Fr Origin\n"
-    << "------------------------------------------------\n";
-    for (Point3D* ptr : p3dv) {
-      ptr->printPoint();
-    }
-
-  } else if (filterCriteria == "Line2D") {
-    cout << setw(5) << right << "P1-X"
-         << setw(6) << "P1-Y"
-         << setw(10) << "P2-X"
-         << setw(6) << "P2-Y"
-         << setw(6) << "\tLength\n"
-         << "----------------------------------------------\n";
-    for (Line2D* ptr : l2dv) {
-      ptr -> printPoint();
-    }
-
+  if (filterCriteria == "None" || sortingCriteria == "None" || sortingOrder == "None") {
+    cout << "Please select all criterias, going back to main menu...";
   } else {
-    cout << setw(5) << right << "P1-X"
-         << setw(6) << "P1-Y"
-         << setw(6) << "P1-Z"
-         << setw(12) << "P2-X"
-         << setw(6) << "P2-Y"
-         << setw(6) << "P2-Z"
-         << setw(6) << "\tLength\n"
-         << "--------------------------------------------------------------------\n";
-    for (Line3D* ptr : l3dv) {
-      ptr -> printPoint();
+    if (filterCriteria == "Point2D") {
+      cout
+      << setw(5) << right << "X"
+      << setw(6)  << "Y"
+      << setw(5)  << "\tDist. Fr Origin\n"
+      << "------------------------------------------------\n";
+      for (Point2D* ptr : p2dv) {
+        ptr->printPoint();
+        count++;
+      }
+
+    } else if (filterCriteria == "Point3D") {
+      cout
+      << setw(5) << right << "X"
+      << setw(6)  << "Y"
+      << setw(6) << "Z"
+      << setw(5)  << "\tDist. Fr Origin\n"
+      << "------------------------------------------------\n";
+      for (Point3D* ptr : p3dv) {
+        ptr->printPoint();
+        count++;
+      }
+
+    } else if (filterCriteria == "Line2D") {
+      cout << setw(5) << right << "P1-X"
+      << setw(6) << "P1-Y"
+      << setw(10) << "P2-X"
+      << setw(6) << "P2-Y"
+      << setw(6) << "\tLength\n"
+      << "----------------------------------------------\n";
+      for (Line2D* ptr : l2dv) {
+        ptr -> printPoint();
+        count++;
+      }
+
+    } else {
+      cout << setw(5) << right << "P1-X"
+      << setw(6) << "P1-Y"
+      << setw(6) << "P1-Z"
+      << setw(12) << "P2-X"
+      << setw(6) << "P2-Y"
+      << setw(6) << "P2-Z"
+      << setw(6) << "\tLength\n"
+      << "--------------------------------------------------------------------\n";
+      for (Line3D* ptr : l3dv) {
+        ptr -> printPoint();
+        count++;
+      }
     }
+    cout << "\n" << to_string(count) << " records printed!";
   }
   cout << "\n\n";
 }
