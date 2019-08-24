@@ -17,7 +17,7 @@
     this->z = z;
   }
 
-  int Point3D::getZ() {
+  int Point3D::getZ() const {
     return this->z;
   }
 
@@ -40,6 +40,11 @@
     return pOne->getZ() < pTwo->getZ();
   }
 
+  bool Point3D::operator==(const Point3D &point) const {
+    return (this->getX() == point.getX()
+      && this->getY() == point.getY()
+      && this->getZ() == point.getZ());
+  }
 
   #ifdef POINT3D
 

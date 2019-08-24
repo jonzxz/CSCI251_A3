@@ -1,10 +1,15 @@
 #include "Line3D.h"
 
-Line3D::Line3D(Point3D pt1, Point3D pt2) : Line2D() {
+Line3D::Line3D(const Point3D pt1, const Point3D pt2) : Line2D() {
   this->pt1 = pt1;
   this->pt2 = pt2;
   this->length = 0;
   this->setLength();
+}
+
+Line3D::Line3D() {
+  this->pt1 = Point3D();
+  this->pt2 = Point3D();
 }
 
 void Line3D::setLength() {
@@ -14,11 +19,11 @@ void Line3D::setLength() {
   this->length = sqrt((pow(x, 2)) + (pow(y, 2)) + (pow(z, 2)));
 }
 
-Point3D Line3D::getPt1() {
+Point3D Line3D::getPt1() const {
   return this->pt1;
 }
 
-Point3D Line3D::getPt2() {
+Point3D Line3D::getPt2() const {
   return this->pt2;
 }
 
@@ -59,6 +64,10 @@ bool Line3D::comparePtTwo(Line3D* lOne, Line3D* lTwo) {
     return lOne->getPt2().getX() < lTwo->getPt2().getX();
   }
   return lOne->getPt2().getY() < lTwo->getPt2().getY();
+}
+
+bool Line3D::operator==(const Line3D &line) const {
+  return this->getPt1() == line.getPt1() && this->getPt2() == line.getPt2();
 }
 
 #ifdef LINE3D

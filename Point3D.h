@@ -11,10 +11,12 @@ public:
   Point3D(int x, int y, int z);
   Point3D();
   void setZ(int z);
-  int getZ();
+  int getZ() const;
   std::string toString() override;
   virtual void printPoint() override;
-  static bool compareZ(Point3D* pOne, Point3D*);
+  static bool compareZ(Point3D* pOne, Point3D* pTwo);
+  bool operator==(const Point3D &point) const;
+
 };
 
 #endif

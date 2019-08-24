@@ -1,6 +1,6 @@
 #include "Line2D.h"
 
-Line2D::Line2D(Point2D p1, Point2D p2) {
+Line2D::Line2D(const Point2D p1, const Point2D p2) {
   this->pt1 = p1;
   this->pt2 = p2;
   this->length = 0;
@@ -18,11 +18,11 @@ void Line2D::setLength() {
   this->length = sqrt(pow(x, 2) + pow(y, 2));
 }
 
-Point2D Line2D::getPt1() {
+Point2D Line2D::getPt1() const {
   return this->pt1;
 }
 
-Point2D Line2D::getPt2() {
+Point2D Line2D::getPt2() const {
   return this->pt2;
 }
 
@@ -71,6 +71,9 @@ bool Line2D::compareLength(Line2D* lOne, Line2D* lTwo) {
   return lOne->getScalarValue() < lTwo->getScalarValue();
 }
 
+bool Line2D::operator==(const Line2D &line) const {
+  return this->getPt1() == line.getPt1() && this->getPt2() == line.getPt2();
+}
 
 #ifdef LINE2D
 

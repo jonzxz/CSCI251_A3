@@ -16,8 +16,8 @@ protected:
 public:
 Point2D(int x, int y);
 Point2D();
-int getX();
-int getY();
+int getX() const;
+int getY() const;
 void setX(int x);
 void setY(int y);
 double getScalarValue();
@@ -26,6 +26,7 @@ virtual void printPoint();
 static bool compareX(Point2D* pOne, Point2D* pTwo);
 static bool compareY(Point2D* pOne, Point2D* pTwo);
 static bool compareDist(Point2D* pOne, Point2D* pTwo);
+bool operator==(const Point2D& point) const;
 };
 
 

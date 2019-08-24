@@ -260,6 +260,7 @@ void writeToFile(string& filterCriteria, string& sortingCriteria, string& sortin
   cout.rdbuf(fileWriter.rdbuf());
   printData(filterCriteria, sortingCriteria, sortingOrder, p2dv, p3dv, l2dv, l3dv);
   cout.rdbuf(strm_buffer);
+  cout << endl;
 }
 /*----------------------------------------------------------------------------*/
 
@@ -324,7 +325,7 @@ void printData(string& filterCriteria, string& sortingCriteria, string& sortingO
         count++;
       }
     }
-    cout << "\n" << to_string(count) << " records printed!";
+    cout << "\n" << to_string(count) << " records output successfully!";
   }
   cout << "\n\n";
 }

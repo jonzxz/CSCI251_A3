@@ -16,11 +16,11 @@ void Point2D::setDistFrOrigin() {
   this->distFrOrigin = sqrt(pow(this->getX(), 2) + (pow(this->getY(), 2)));
 }
 
-int Point2D::getX() {
+int Point2D::getX() const {
   return this->x;
 }
 
-int Point2D::getY() {
+int Point2D::getY() const {
   return this->y;
 }
 
@@ -51,6 +51,13 @@ bool Point2D::compareY(Point2D* pOne, Point2D* pTwo) {
 
 bool Point2D::compareDist(Point2D* pOne, Point2D* pTwo) {
   return pOne->getScalarValue() < pTwo->getScalarValue();
+}
+
+bool Point2D::operator==(const Point2D &point) const {
+  if (this->getX() == point.getX() && this->getY() == point.getY()) {
+    return true;
+  }
+  return false;
 }
 
 #ifdef POINT2D
